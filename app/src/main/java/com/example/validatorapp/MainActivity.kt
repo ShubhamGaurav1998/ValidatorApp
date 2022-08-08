@@ -3,6 +3,8 @@ package com.example.validatorapp
 import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputFilter
+import android.text.InputFilter.AllCaps
 import android.text.TextWatcher
 import android.view.MenuItem
 import android.widget.Toast
@@ -25,6 +27,9 @@ class MainActivity : AppCompatActivity() {
         }
         mainViewModel = MainViewModel()
 
+        binding.etPanNumber.setFilters(arrayOf<InputFilter>(AllCaps()))
+
+
         binding.btnNext.setOnClickListener {
             Toast.makeText(
                 this,
@@ -38,15 +43,34 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.etPanNumber.addTextChangedListener(panTextWatcher)
+        binding.etPanNumber.addTextChangedListener(textWatcher)
+        binding.etDay.addTextChangedListener(textWatcher)
+        binding.etMonth.addTextChangedListener(textWatcher)
+        binding.etYear.addTextChangedListener(textWatcher)
 
     }
 
-    private val panTextWatcher: TextWatcher = object : TextWatcher {
+    private val textWatcher: TextWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
             val panInput: String = binding.etPanNumber.getText().toString().trim()
-            binding.btnNext.setEnabled(mainViewModel.isValidPanCardNo(panInput))
+            val dayInput: Int? = binding.etDay.getText().toString().trim().toIntOrNull()
+            val monthInput: Int? = binding.etMonth.getText().toString().trim().toIntOrNull()
+            val yearInput: Int? = binding.etYear.getText().toString().trim().toIntOrNull()
+
+            if (dayInput != null && monthInput != null && yearInput != null) {
+
+                if (mainViewModel.isValidDate(dayInput, monthInput, yearInput)
+                    && mainViewModel.isValidPanCardNo(panInput)
+                ) {
+                    binding.btnNext.setBackgroundColor(getColor(R.color.purple_200))
+                    binding.btnNext.isEnabled = true
+                }
+                else {
+                    binding.btnNext.setBackgroundColor(getColor(R.color.strokeColor))
+                    binding.btnNext.isEnabled = false
+                }
+            }
         }
         override fun afterTextChanged(s: Editable) {}
     }

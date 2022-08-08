@@ -11,8 +11,8 @@
 
         <ImageView
             android:id="@+id/ivLogo"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="@dimen/dimen_80"
+            android:layout_height="@dimen/dimen_80"
             android:src="@drawable/s_logo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -25,7 +25,7 @@
             android:fontFamily="sans-serif-medium"
             android:text="@string/title_text"
             android:textColor="@color/black"
-            android:textSize="25sp"
+            android:textSize="@dimen/text_size_23"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,10 +35,10 @@
             android:id="@+id/tvPanNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="@dimen/dimen_60"
             android:fontFamily="sans-serif-medium"
             android:text="@string/pan_number"
-            android:textSize="13sp"
+            android:textSize="@dimen/text_size_13"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTitleText" />
@@ -50,6 +50,8 @@
             android:layout_marginTop="@dimen/dimen_10"
             android:background="@drawable/et_background"
             android:padding="@dimen/dimen_10"
+            android:maxLength="10"
+            android:inputType="textCapCharacters"
             android:textCursorDrawable="@drawable/cursor_drawable"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -62,7 +64,7 @@
             android:layout_marginTop="30dp"
             android:fontFamily="sans-serif-medium"
             android:text="@string/birthdate"
-            android:textSize="13sp"
+            android:textSize="@dimen/text_size_13"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/etPanNumber" />
@@ -84,7 +86,7 @@
                 android:background="@drawable/et_background"
                 android:gravity="center"
                 android:inputType="number"
-                android:maxLength="4"
+                android:maxLength="2"
                 android:padding="@dimen/dimen_10"
                 android:textCursorDrawable="@drawable/cursor_drawable" />
 
@@ -98,7 +100,7 @@
                 android:background="@drawable/et_background"
                 android:gravity="center"
                 android:inputType="number"
-                android:maxLength="4"
+                android:maxLength="2"
                 android:padding="@dimen/dimen_10"
                 android:textCursorDrawable="@drawable/cursor_drawable" />
 
@@ -123,7 +125,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dimen_14"
             android:text="@string/message"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_size_14"
             app:layout_constraintBottom_toTopOf="@id/btnNext"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -133,15 +135,15 @@
             android:id="@+id/btnNext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/purple_200"
             android:elevation="@dimen/dimen_10"
             android:paddingTop="@dimen/dimen_10"
             android:paddingBottom="@dimen/dimen_10"
             android:text="@string/next"
             android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_size_16"
             android:enabled="false"
+            android:backgroundTint="@color/strokeColor"
             app:layout_constraintBottom_toTopOf="@id/tvDontHavePan"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -154,7 +156,7 @@
             android:gravity="center_horizontal"
             android:text="@string/i_don_t_have_a_pan"
             android:textColor="@color/purple_200"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_size_16"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
