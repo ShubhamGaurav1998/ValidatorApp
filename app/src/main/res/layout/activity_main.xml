@@ -87,6 +87,7 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:maxLength="2"
+                android:hint="@string/day_hint"
                 android:padding="@dimen/dimen_10"
                 android:textCursorDrawable="@drawable/cursor_drawable" />
 
@@ -101,6 +102,7 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:maxLength="2"
+                android:hint="@string/mm"
                 android:padding="@dimen/dimen_10"
                 android:textCursorDrawable="@drawable/cursor_drawable" />
 
@@ -113,6 +115,7 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:maxLength="4"
+                android:hint="@string/yyyy"
                 android:padding="@dimen/dimen_10"
                 android:textCursorDrawable="@drawable/cursor_drawable" />
 

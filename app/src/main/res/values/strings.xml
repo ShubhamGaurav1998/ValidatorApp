@@ -10,4 +10,7 @@
     <string name="pan_number">PAN NUMBER</string>
     <string name="details_submitted_successfully">Details submitted successfully</string>
     <string name="birthdate">BIRTHDATE</string>
+    <string name="day_hint">DD</string>
+    <string name="mm">MM</string>
+    <string name="yyyy">YYYY</string>
 </resources>

@@ -7,6 +7,8 @@ import android.text.InputFilter
 import android.text.InputFilter.AllCaps
 import android.text.TextWatcher
 import android.view.MenuItem
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -60,11 +62,12 @@ class MainActivity : AppCompatActivity() {
 
             if (dayInput != null && monthInput != null && yearInput != null) {
 
-                if (mainViewModel.isValidDate(dayInput, monthInput, yearInput)
-                    && mainViewModel.isValidPanCardNo(panInput)
+                if (mainViewModel.isValidDate(dayInput, monthInput, yearInput) && mainViewModel.isValidPanCardNo(panInput)
+                    && checkIfDDMMlenghthIs2(binding.etDay.getText().toString().trim(), binding.etMonth.getText().toString().trim())
                 ) {
                     binding.btnNext.setBackgroundColor(getColor(R.color.purple_200))
                     binding.btnNext.isEnabled = true
+                    hideKeyboard()
                 }
                 else {
                     binding.btnNext.setBackgroundColor(getColor(R.color.strokeColor))
@@ -73,6 +76,20 @@ class MainActivity : AppCompatActivity() {
             }
         }
         override fun afterTextChanged(s: Editable) {}
+    }
+
+    fun hideKeyboard() {
+        val imm: InputMethodManager =
+            this.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        var view: View? = this.currentFocus
+        if (view == null) {
+            view = View(this)
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0)
+    }
+
+    fun checkIfDDMMlenghthIs2(day: String, month: String): Boolean {
+        return (day.length == 2 && month.length == 2)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
