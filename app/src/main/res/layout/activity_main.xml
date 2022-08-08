@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/dimen_14"
+        tools:context=".MainActivity">
+
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/s_logo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvTitleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_40"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/title_text"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivLogo" />
+
+        <TextView
+            android:id="@+id/tvPanNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/pan_number"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitleText" />
+
+        <EditText
+            android:id="@+id/etPanNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:background="@drawable/et_background"
+            android:padding="@dimen/dimen_10"
+            android:textCursorDrawable="@drawable/cursor_drawable"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPanNumber" />
+
+        <TextView
+            android:id="@+id/tvDob"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/birthdate"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etPanNumber" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDob">
+
+            <EditText
+                android:id="@+id/etDay"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:background="@drawable/et_background"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="4"
+                android:padding="@dimen/dimen_10"
+                android:textCursorDrawable="@drawable/cursor_drawable" />
+
+            <EditText
+                android:id="@+id/etMonth"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_40"
+                android:layout_marginRight="@dimen/dimen_40"
+                android:layout_weight="2"
+                android:background="@drawable/et_background"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="4"
+                android:padding="@dimen/dimen_10"
+                android:textCursorDrawable="@drawable/cursor_drawable" />
+
+            <EditText
+                android:id="@+id/etYear"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:background="@drawable/et_background"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="4"
+                android:padding="@dimen/dimen_10"
+                android:textCursorDrawable="@drawable/cursor_drawable" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tvMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dimen_14"
+            android:text="@string/message"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@id/btnNext"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/purple_200"
+            android:elevation="@dimen/dimen_10"
+            android:paddingTop="@dimen/dimen_10"
+            android:paddingBottom="@dimen/dimen_10"
+            android:text="@string/next"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:enabled="false"
+            app:layout_constraintBottom_toTopOf="@id/tvDontHavePan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvDontHavePan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center_horizontal"
+            android:text="@string/i_don_t_have_a_pan"
+            android:textColor="@color/purple_200"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
