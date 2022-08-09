@@ -3,6 +3,7 @@ package com.example.validatorapp
 import androidx.lifecycle.ViewModel
 import java.util.regex.Matcher
 import java.util.regex.Pattern
+import java.util.*
 
 
 class MainViewModel: ViewModel() {
@@ -45,5 +46,18 @@ class MainViewModel: ViewModel() {
         val m: Matcher = p.matcher(panCardNo)
 
         return m.matches()
+    }
+
+    fun isUser18Older(year: Int, month: Int, day: Int): Boolean {
+        val c1 = Calendar.getInstance()
+        c1[year, month - 1, day, 0] = 0
+        val c2 = Calendar.getInstance()
+        var diff = c2[Calendar.YEAR] - c1[Calendar.YEAR]
+        if (c1[Calendar.MONTH] > c2[Calendar.MONTH] ||
+            c1[Calendar.MONTH] == c2[Calendar.MONTH] && c1[Calendar.DATE] > c2[Calendar.DATE]
+        ) {
+            diff--
+        }
+        return diff >= 18
     }
 }

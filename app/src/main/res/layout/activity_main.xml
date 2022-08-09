@@ -50,7 +50,6 @@
             android:layout_marginTop="@dimen/dimen_10"
             android:background="@drawable/et_background"
             android:padding="@dimen/dimen_10"
-            android:maxLength="10"
             android:inputType="textCapCharacters"
             android:textCursorDrawable="@drawable/cursor_drawable"
             app:layout_constraintEnd_toEndOf="parent"
@@ -102,7 +101,7 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:maxLength="2"
-                android:hint="@string/mm"
+                android:hint="@string/month_hint"
                 android:padding="@dimen/dimen_10"
                 android:textCursorDrawable="@drawable/cursor_drawable" />
 
@@ -115,7 +114,7 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:maxLength="4"
-                android:hint="@string/yyyy"
+                android:hint="@string/year_hint"
                 android:padding="@dimen/dimen_10"
                 android:textCursorDrawable="@drawable/cursor_drawable" />
 
@@ -127,7 +126,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dimen_14"
-            android:text="@string/message"
+            android:text="@string/formatted_message_text"
             android:textSize="@dimen/text_size_14"
             app:layout_constraintBottom_toTopOf="@id/btnNext"
             app:layout_constraintEnd_toEndOf="parent"

@@ -6,11 +6,14 @@
     <string name="next">NEXT</string>
     <string name="i_don_t_have_a_pan">I don\'t have a PAN</string>
     <string name="title_text">First of the few steps to set you up with a Bank Account</string>
-    <string name="message">Providing PAN and Date of Birth helps us find and fetch your KYC from a central registry by the Government of India.</string>
     <string name="pan_number">PAN NUMBER</string>
+    <string name="formatted_message_text">
+    <font color="#707B7C">Providing PAN and Date of Birth helps us find and fetch your KYC from a central registry by the Government of India.</font>
+    <font color="#A569BD">Learn more</font>
+    </string>
     <string name="details_submitted_successfully">Details submitted successfully</string>
     <string name="birthdate">BIRTHDATE</string>
     <string name="day_hint">DD</string>
-    <string name="mm">MM</string>
-    <string name="yyyy">YYYY</string>
+    <string name="month_hint">MM</string>
+    <string name="year_hint">YYYY</string>
 </resources>

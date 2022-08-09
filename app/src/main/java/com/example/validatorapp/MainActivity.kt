@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
 import android.text.InputFilter.AllCaps
+import android.text.InputFilter.LengthFilter
 import android.text.TextWatcher
 import android.view.MenuItem
 import android.view.View
@@ -22,14 +23,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         if (supportActionBar != null) {
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         }
         mainViewModel = MainViewModel()
 
-        binding.etPanNumber.setFilters(arrayOf<InputFilter>(AllCaps()))
+        binding.etPanNumber.setFilters(arrayOf(AllCaps(), LengthFilter(10)))
 
 
         binding.btnNext.setOnClickListener {
@@ -63,7 +63,8 @@ class MainActivity : AppCompatActivity() {
             if (dayInput != null && monthInput != null && yearInput != null) {
 
                 if (mainViewModel.isValidDate(dayInput, monthInput, yearInput) && mainViewModel.isValidPanCardNo(panInput)
-                    && checkIfDDMMlenghthIs2(binding.etDay.getText().toString().trim(), binding.etMonth.getText().toString().trim())
+                    && checkIfDDMMlenghthIs2(binding.etDay.getText().toString().trim(), binding.etMonth.getText().toString().trim()) &&
+                    mainViewModel.isUser18Older(yearInput, monthInput, dayInput)
                 ) {
                     binding.btnNext.setBackgroundColor(getColor(R.color.purple_200))
                     binding.btnNext.isEnabled = true
