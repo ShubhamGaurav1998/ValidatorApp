@@ -1,4 +1,4 @@
-package com.example.validatorapp
+package com.example.validatorapp.views
 
 import androidx.lifecycle.ViewModel
 import java.util.regex.Matcher

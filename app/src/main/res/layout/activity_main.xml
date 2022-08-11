@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/dimen_14"
-        tools:context=".MainActivity">
+        tools:context=".views.MainActivity">
 
         <ImageView
             android:id="@+id/ivLogo"
@@ -138,14 +138,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="@dimen/dimen_10"
-            android:paddingTop="@dimen/dimen_10"
-            android:paddingBottom="@dimen/dimen_10"
             android:text="@string/next"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_16"
             android:enabled="false"
-            android:backgroundTint="@color/strokeColor"
+            android:layout_marginBottom="@dimen/dimen_20"
+            android:background="@drawable/btn_selector"
             app:layout_constraintBottom_toTopOf="@id/tvDontHavePan"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

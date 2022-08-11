@@ -8,8 +8,8 @@
     <string name="title_text">First of the few steps to set you up with a Bank Account</string>
     <string name="pan_number">PAN NUMBER</string>
     <string name="formatted_message_text">
-    <font color="#707B7C">Providing PAN and Date of Birth helps us find and fetch your KYC from a central registry by the Government of India.</font>
-    <font color="#A569BD">Learn more</font>
+        Providing PAN and Date of Birth helps us find and fetch your KYC from a central registry by the Government of India.
+        <font color="#A569BD">Learn more</font>
     </string>
     <string name="details_submitted_successfully">Details submitted successfully</string>
     <string name="birthdate">BIRTHDATE</string>

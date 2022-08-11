@@ -1,9 +1,8 @@
-package com.example.validatorapp
+package com.example.validatorapp.views
 
 import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Editable
-import android.text.InputFilter
 import android.text.InputFilter.AllCaps
 import android.text.InputFilter.LengthFilter
 import android.text.TextWatcher
@@ -13,10 +12,11 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.example.validatorapp.R
 import com.example.validatorapp.databinding.ActivityMainBinding
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var mainViewModel: MainViewModel
@@ -32,18 +32,8 @@ class MainActivity : AppCompatActivity() {
         binding.etPanNumber.setFilters(arrayOf(AllCaps(), LengthFilter(10)))
 
 
-        binding.btnNext.setOnClickListener {
-            Toast.makeText(
-                this,
-                getString(R.string.details_submitted_successfully),
-                Toast.LENGTH_SHORT
-            ).show()
-            finish()
-        }
-
-        binding.tvDontHavePan.setOnClickListener {
-            finish()
-        }
+        binding.btnNext.setOnClickListener(this)
+        binding.tvDontHavePan.setOnClickListener(this)
 
         binding.etPanNumber.addTextChangedListener(textWatcher)
         binding.etDay.addTextChangedListener(textWatcher)
@@ -55,23 +45,36 @@ class MainActivity : AppCompatActivity() {
     private val textWatcher: TextWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-            val panInput: String = binding.etPanNumber.getText().toString().trim()
-            val dayInput: Int? = binding.etDay.getText().toString().trim().toIntOrNull()
-            val monthInput: Int? = binding.etMonth.getText().toString().trim().toIntOrNull()
-            val yearInput: Int? = binding.etYear.getText().toString().trim().toIntOrNull()
+            val panInput: String = binding.etPanNumber.text.toString().trim()
+            val dayInput: Int? = binding.etDay.text.toString().trim().toIntOrNull()
+            val monthInput: Int? = binding.etMonth.text.toString().trim().toIntOrNull()
+            val yearInput: Int? = binding.etYear.text.toString().trim().toIntOrNull()
+
+            if(binding.etPanNumber.text.toString().length == 10)
+            {
+                binding.etDay.requestFocus()
+            }
+
+            if(binding.etDay.text.toString().length == 2 && binding.etPanNumber.text.toString().length == 10)
+            {
+                binding.etMonth.requestFocus()
+            }
+
+            if(binding.etMonth.text.toString().length == 2 && binding.etPanNumber.text.toString().length == 10)
+            {
+                binding.etYear.requestFocus()
+            }
 
             if (dayInput != null && monthInput != null && yearInput != null) {
 
-                if (mainViewModel.isValidDate(dayInput, monthInput, yearInput) && mainViewModel.isValidPanCardNo(panInput)
-                    && checkIfDDMMlenghthIs2(binding.etDay.getText().toString().trim(), binding.etMonth.getText().toString().trim()) &&
-                    mainViewModel.isUser18Older(yearInput, monthInput, dayInput)
+                if (checkIfDDMMlenghthIs2(binding.etDay.text.toString().trim(), binding.etMonth.text.toString().trim()) &&
+                    mainViewModel.isValidDate(dayInput, monthInput, yearInput) && mainViewModel.isUser18Older(yearInput, monthInput, dayInput)
+                    && mainViewModel.isValidPanCardNo(panInput)
                 ) {
-                    binding.btnNext.setBackgroundColor(getColor(R.color.purple_200))
                     binding.btnNext.isEnabled = true
                     hideKeyboard()
                 }
                 else {
-                    binding.btnNext.setBackgroundColor(getColor(R.color.strokeColor))
                     binding.btnNext.isEnabled = false
                 }
             }
@@ -110,5 +113,23 @@ class MainActivity : AppCompatActivity() {
             ) { dialog, id -> this@MainActivity.finish() }
             .setNegativeButton(this.getString(R.string.no), null)
             .show()
+    }
+
+    override fun onClick(p0: View?) {
+        when(p0?.id) {
+
+            binding.btnNext.id -> {
+                Toast.makeText(
+                    this,
+                    getString(R.string.details_submitted_successfully),
+                    Toast.LENGTH_SHORT
+                ).show()
+                finish()
+            }
+
+            binding.tvDontHavePan.id -> {
+                finish()
+            }
+        }
     }
 }
