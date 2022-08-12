@@ -12,25 +12,34 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import com.example.validatorapp.MyApplication
 import com.example.validatorapp.R
 import com.example.validatorapp.databinding.ActivityMainBinding
+import com.example.validatorapp.viewModels.MainViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var mainViewModel: MainViewModel
+    @Inject
+    lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        (application as MyApplication).applicationComponent.inject(this)
+
         if (supportActionBar != null) {
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         }
-        mainViewModel = MainViewModel()
 
         binding.etPanNumber.setFilters(arrayOf(AllCaps(), LengthFilter(10)))
-
 
         binding.btnNext.setOnClickListener(this)
         binding.tvDontHavePan.setOnClickListener(this)
@@ -40,46 +49,68 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.etMonth.addTextChangedListener(textWatcher)
         binding.etYear.addTextChangedListener(textWatcher)
 
+        setObservers()
+    }
+
+    private fun setObservers() {
+        mainViewModel._isValidDob.observe(this, Observer {
+            enableOrDisableNextButton()
+        })
+
+        mainViewModel._isValidPan.observe(this, Observer {
+            enableOrDisableNextButton()
+        })
     }
 
     private val textWatcher: TextWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
             val panInput: String = binding.etPanNumber.text.toString().trim()
-            val dayInput: Int? = binding.etDay.text.toString().trim().toIntOrNull()
-            val monthInput: Int? = binding.etMonth.text.toString().trim().toIntOrNull()
-            val yearInput: Int? = binding.etYear.text.toString().trim().toIntOrNull()
+            val dayInput: String = binding.etDay.text.toString().trim()
+            val monthInput: String = binding.etMonth.text.toString().trim()
+            val yearInput: String = binding.etYear.text.toString().trim()
 
-            if(binding.etPanNumber.text.toString().length == 10)
-            {
-                binding.etDay.requestFocus()
-            }
+            changeFocusBetweenInputFields(panInput, dayInput, monthInput, yearInput)
 
-            if(binding.etDay.text.toString().length == 2 && binding.etPanNumber.text.toString().length == 10)
-            {
-                binding.etMonth.requestFocus()
-            }
+            if (dayInput.length == 2 && monthInput.length == 2 && yearInput.length == 4 && panInput.length == 10) {
 
-            if(binding.etMonth.text.toString().length == 2 && binding.etPanNumber.text.toString().length == 10)
-            {
-                binding.etYear.requestFocus()
-            }
+                mainViewModel.validateDob(dayInput, monthInput, yearInput)
+                mainViewModel.validatePanCard(panInput)
 
-            if (dayInput != null && monthInput != null && yearInput != null) {
-
-                if (checkIfDDMMlenghthIs2(binding.etDay.text.toString().trim(), binding.etMonth.text.toString().trim()) &&
-                    mainViewModel.isValidDate(dayInput, monthInput, yearInput) && mainViewModel.isUser18Older(yearInput, monthInput, dayInput)
-                    && mainViewModel.isValidPanCardNo(panInput)
-                ) {
-                    binding.btnNext.isEnabled = true
-                    hideKeyboard()
-                }
-                else {
-                    binding.btnNext.isEnabled = false
-                }
             }
         }
         override fun afterTextChanged(s: Editable) {}
+    }
+
+    fun enableOrDisableNextButton(){
+        if(mainViewModel._isValidDob.value == true && mainViewModel._isValidPan.value == true){
+            binding.btnNext.isEnabled = true
+            hideKeyboard()
+        } else {
+            binding.btnNext.isEnabled = false
+        }
+    }
+
+    private fun changeFocusBetweenInputFields(panInput: String, dayInput: String, monthInput: String, yearInput: String) {
+        if(panInput.length == 10)
+        {
+            binding.etDay.requestFocus()
+        }
+
+        if(dayInput.length == 2)
+        {
+            binding.etMonth.requestFocus()
+        }
+
+        if(monthInput.length == 2 && dayInput.length == 2)
+        {
+            binding.etYear.requestFocus()
+        }
+
+        if(yearInput.length == 4 && panInput.length != 10)
+        {
+            binding.etPanNumber.requestFocus()
+        }
     }
 
     fun hideKeyboard() {
@@ -90,10 +121,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             view = View(this)
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0)
-    }
-
-    fun checkIfDDMMlenghthIs2(day: String, month: String): Boolean {
-        return (day.length == 2 && month.length == 2)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -124,7 +151,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     getString(R.string.details_submitted_successfully),
                     Toast.LENGTH_SHORT
                 ).show()
-                finish()
+                lifecycleScope.launch {
+                    delay(2000)
+                    finish()
+                }
             }
 
             binding.tvDontHavePan.id -> {

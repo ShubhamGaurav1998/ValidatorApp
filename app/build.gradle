@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -37,6 +38,20 @@ android {
 
 dependencies {
 
+    def couroutines_version = "1.6.3"
+    def lifecycle_version = "2.5.0"
+    def dagger_version = "2.39.1"
+
+    implementation "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$couroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$couroutines_version"
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    //noinspection LifecycleAnnotationProcessorWithJava8
+    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
